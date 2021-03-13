@@ -10,9 +10,10 @@ namespace Minecraft.Player
     private Rigidbody _rigid;
     private Vector3 _movement;
     private float _h, _v;
-    
+
     private bool _isJumpPressed = false;
-    private float speed = 10f;
+
+    private float _speed = 10f;
     // private float _movingMultiplyer;
     // private float _maxSpeed;
     // private float _minSpeed;
@@ -59,14 +60,14 @@ namespace Minecraft.Player
       //   _rigid.AddForce(new Vector3(0, 0, ver));
       //
       _movement.Set(_h, _rigid.velocity.y, _v);
-      _movement = _movement.normalized * speed * Time.deltaTime;
+      _movement = _movement.normalized * _speed * Time.deltaTime;
       _rigid.MovePosition(transform.position + _movement);
-      
+
       if (_isJumpPressed)
       {
         _rigid.AddForce(new Vector3(0, 2, 0), ForceMode.Impulse);
         _isJumpPressed = false;
       }
     }
-  }  
+  }
 }
