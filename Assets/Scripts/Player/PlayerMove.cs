@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Minecraft.Player
 {
@@ -13,7 +14,8 @@ namespace Minecraft.Player
 
     private bool _isJumpPressed = false;
 
-    private float _speed = 10f;
+    [FormerlySerializedAs("_speed")]
+    public float speed;
     // private float _movingMultiplyer;
     // private float _maxSpeed;
     // private float _minSpeed;
@@ -60,7 +62,7 @@ namespace Minecraft.Player
       //   _rigid.AddForce(new Vector3(0, 0, ver));
       //
       _movement.Set(_h, _rigid.velocity.y, _v);
-      _movement = _movement.normalized * _speed * Time.deltaTime;
+      _movement = _movement.normalized * speed * Time.deltaTime;
       _rigid.MovePosition(transform.position + _movement);
 
       if (_isJumpPressed)
