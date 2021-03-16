@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Minecraft.Player
 {
@@ -9,10 +10,9 @@ namespace Minecraft.Player
   {
     public float lookSensitivity;
     
-    private float _camRotationLimit;
+    private float _camRotationLimit = 90;
     private float _curCamRotationX;
 
-    private Camera _cam;
     private Rigidbody _rigid;
 
     private void Awake()
@@ -22,13 +22,13 @@ namespace Minecraft.Player
 
     private void Update()
     {
-      float xRot = Input.GetAxisRaw("Mouse Y");
-      float camRotX = xRot + lookSensitivity;
+      float xRot = Input.GetAxisRaw("Mouse X");
+      Debug.Log(xRot);
+      float camRotX = -xRot * lookSensitivity;
 
-      _curCamRotationX -= camRotX;
-      _curCamRotationX = Mathf.Clamp(_curCamRotationX, -_camRotationLimit, _camRotationLimit);
+      _curCamRotationX += camRotX;
 
-      _cam.transform.localEulerAngles = new Vector3(_curCamRotationX, 0f, 0f);
+      transform.localEulerAngles = new Vector3(0f, _curCamRotationX, 0f);
     }
   }
 }
