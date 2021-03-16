@@ -21,6 +21,7 @@ namespace Minecraft.Player
     private void Awake()
     {
       _rigid = GetComponent<Rigidbody>();
+      Cursor.visible = false;
     }
 
     private void Update()
