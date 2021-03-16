@@ -587,6 +587,7 @@ MonoBehaviour:
   verticalSens: 5
   horizontalSens: 5
   head: {fileID: 1863814961}
+  body: {fileID: 538693084}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
