@@ -2,16 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Minecraft.Player
 {
   public class PlayerMouseEvent : MonoBehaviour
   {
-    public float lookSensitivity;
+    public float verticalSens = 5;
+    public float horizontalSens = 5;
+    public GameObject head;
     
-    private float _camRotationLimit = 90;
-    private float _curCamRotationX;
+    private const float CamRotationLimit = 90f;
+    private float _curCamRotationX = 0f;
+    private float _curCamRotationY = 0f;
+    private float _curCamRotationZ = 0f;
 
     private Rigidbody _rigid;
 
@@ -22,13 +25,39 @@ namespace Minecraft.Player
 
     private void Update()
     {
+      MoveHorizontal();
+      MoveVertical();
+    }
+
+    private void MoveHorizontal()
+    {
       float xRot = Input.GetAxisRaw("Mouse X");
-      Debug.Log(xRot);
-      float camRotX = -xRot * lookSensitivity;
+      float camRotX = xRot * horizontalSens;
 
       _curCamRotationX += camRotX;
 
-      transform.localEulerAngles = new Vector3(0f, _curCamRotationX, 0f);
+      RotateHead();
+    }
+
+    private void MoveVertical()
+    {
+      float yRot = Input.GetAxisRaw("Mouse Y");
+      float camRotY = -yRot * verticalSens;
+
+      _curCamRotationY += camRotY;
+      _curCamRotationY = Mathf.Clamp(_curCamRotationY, -CamRotationLimit, CamRotationLimit);
+
+      RotateHead();
+    }
+
+    private void RotateHead()
+    {
+      head.transform.localEulerAngles
+        = new Vector3(
+          _curCamRotationY,
+          _curCamRotationX,
+            _curCamRotationZ
+          );
     }
   }
 }
