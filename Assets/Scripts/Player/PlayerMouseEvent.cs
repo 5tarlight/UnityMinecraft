@@ -10,6 +10,7 @@ namespace Minecraft.Player
     public float verticalSens = 5;
     public float horizontalSens = 5;
     public GameObject head;
+    public GameObject body;
     
     private const float CamRotationLimit = 90f;
     private float _curCamRotationX = 0f;
@@ -59,6 +60,8 @@ namespace Minecraft.Player
           _curCamRotationX,
             _curCamRotationZ
           );
+
+      body.transform.eulerAngles = new Vector3(0f, _curCamRotationX, 0f);
     }
   }
 }
