@@ -9,10 +9,10 @@ namespace Minecraft.Player
   public class PlayerMove : MonoBehaviour
   {
     private Rigidbody _rigid;
-    private Vector3 _movement;
     private float _h, _v;
 
     public float speed = 10;
+    public GameObject head;
 
     private void Awake()
     {
@@ -27,9 +27,12 @@ namespace Minecraft.Player
 
     private void FixedUpdate()
     {
-      _movement.Set(_h, 0f, _v);
-      _movement = _movement.normalized * speed * Time.deltaTime;
-      _rigid.MovePosition(transform.position + _movement);
+      var moveHor = head.transform.right * _h;
+      var moveVer = head.transform.forward * _v;
+
+      var vel = (moveHor + moveVer).normalized * speed;
+      
+      _rigid.MovePosition(transform.position + vel * Time.deltaTime);
     }
   }
 }
