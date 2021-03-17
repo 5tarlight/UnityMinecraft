@@ -12,9 +12,6 @@ namespace Minecraft.Player
     private Vector3 _movement;
     private float _h, _v;
 
-    private bool _isJumpPressed = false;
-
-    [FormerlySerializedAs("_speed")]
     public float speed = 10;
 
     private void Awake()
@@ -24,23 +21,15 @@ namespace Minecraft.Player
 
     private void Update()
     {
-      if (Input.GetKeyDown(KeyCode.Space)) _isJumpPressed = true;
-
       _h = Input.GetAxisRaw("Horizontal");
       _v = Input.GetAxisRaw("Vertical");
     }
 
     private void FixedUpdate()
     {
-      _movement.Set(_h, _rigid.velocity.y, _v);
+      _movement.Set(_h, 0f, _v);
       _movement = _movement.normalized * speed * Time.deltaTime;
       _rigid.MovePosition(transform.position + _movement);
-
-      if (_isJumpPressed)
-      {
-        _rigid.AddForce(new Vector3(0, 3, 0), ForceMode.Impulse);
-        _isJumpPressed = false;
-      }
     }
   }
 }
