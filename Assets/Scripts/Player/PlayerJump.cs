@@ -23,11 +23,18 @@ namespace Minecraft.Player
 
     private void FixedUpdate()
     {
-      if (_isJumpPressed)
+      if (_isJumpPressed && !_isJumping)
       {
         _rigid.AddForce(0, jumpPower, 0, ForceMode.Impulse);
         _isJumpPressed = false;
+        _isJumping = true;
       }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+      if (collision.gameObject.layer == (int) Layer.SolidBlock)
+        _isJumping = false;
     }
   }
 }
