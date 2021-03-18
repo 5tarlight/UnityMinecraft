@@ -33,8 +33,8 @@ namespace Minecraft.Player
 
     private void MoveHorizontal()
     {
-      float xRot = Input.GetAxisRaw("Mouse X");
-      float camRotX = xRot * horizontalSens;
+      var xRot = Input.GetAxisRaw("Mouse X");
+      var camRotX = xRot * horizontalSens;
 
       _curCamRotationX += camRotX;
 
@@ -43,8 +43,8 @@ namespace Minecraft.Player
 
     private void MoveVertical()
     {
-      float yRot = Input.GetAxisRaw("Mouse Y");
-      float camRotY = -yRot * verticalSens;
+      var yRot = Input.GetAxisRaw("Mouse Y");
+      var camRotY = -yRot * verticalSens;
 
       _curCamRotationY += camRotY;
       _curCamRotationY = Mathf.Clamp(_curCamRotationY, -CamRotationLimit, CamRotationLimit);
